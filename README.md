@@ -87,7 +87,7 @@ Each build links components via foreign keys, allowing flexible and scalable bui
 ## 📦 Installation & Setup
 ### 1️⃣ Clone the Repository
 
-git clone
+git clone https://github.com/MuhammadHuzir/HardwareForge-Web-Development.git
 
 cd coding
 
