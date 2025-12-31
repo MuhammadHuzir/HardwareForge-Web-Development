@@ -22,7 +22,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  justify-content: flex-start; /* Align left */
+  justify-content: center; /* Center the grid */
 }
 
 .cpu-col {

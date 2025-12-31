@@ -1,0 +1,15 @@
+.hf-home {
+    position: absolute;
+    top: 20px;
+    left: 24px;
+    color: #000; /* black text */
+}
+
+.hf-home img {
+    height: 48px; /* smaller, clean logo */
+}
+
+.hf-home span {
+    font-size: 1.5rem; /* balanced text size */
+}
+
