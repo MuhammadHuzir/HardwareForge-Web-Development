@@ -162,8 +162,459 @@
 
 
   <div id="dropdown-container"></div>
+
+  <script>
+  const PRESET_BUILDS = {
+    budget: {
+      selectedCPU: {
+        id: 6,
+        name: "AMD Ryzen 5 5600",
+        brand: "AMD",
+        price: 469.00,
+        image_url: "images/CPU/AMD_RYZEN_5_5000_SERIES.avif",
+        product_url: "https://www.tmt.my/products/amd-processor-am4-ryze...",
+        cores: 6,
+        threads: 12,
+        base_clock: 3.50,
+        boost_clock: 4.40,
+        socket: "AM4",
+        dimension: "40mm x 40mm",
+        wattage: 65,
+        cpu_category: "consumer"
+      },
+
+      selectedCpuCooler: {
+        id: 2,
+        name: "DeepCool AK400 Performance",
+        price: 139.00,
+        image_url: "images/CPUCOOLER/DEEPCOOL_AK400_PERFORMANCE.jpg",
+        product_url: null,
+        liquid_cooling: 0,
+        dimension: "155mm (H) x 127mm (W) x 97mm (D)",
+        color: "Black",
+        height_mm: 155,
+        heatpipes: "4 heatpipes",
+        tdp: 180
+      },
+
+      selectedMotherboard: {
+        id: 2,
+        name: "MSI B550 Gaming Plus",
+        price: 599.00,
+        image_url: "images/MOTHERBOARD/MSI_MPG_B550_GAMING_PLUS.png",
+        product_url: null,
+        CPU: "AM4",
+        cpu_socket: "AM4",
+        chipset: "AMD B550",
+        memory: "4 x DDR4, up to 4400 MHz, 128GB max",
+        memory_type: "DDR4",
+        memory_speed: "4400+",
+        LAN: "Realtek 8111H Gigabit LAN",
+        wireless_connection: "None",
+        expansion_slot: "2 x PCIe x16, 2 x PCIe x1",
+        storage_interface: "2 x M.2, 6 x SATA 6Gb/s",
+        form_factor: "ATX",
+        wattage: 65
+      },
+
+      selectedRAM: {
+        id: 7,
+        name: "G.Skill Ripjaws V 16GB DDR4 3200MHz",
+        price: 279.00,
+        image_url: "images/RAM/G.SKILL_RIPJAWS_V_16GB_DDR4_3200MHZ.jpg",
+        product_url: null,
+        memory_speed: "3200MHz",
+        memory_size: 16,
+        memory_type: "DDR4",
+        color: "Black",
+        wattage: 3
+      },
+
+      selectedGPU: {
+        id: 38,
+        name: "Sapphire Pulse RX 7600 XT 16GB",
+        brand: "AMD",
+        price: 1499.00,
+        image_url: "images/GPU/Sapphire_Pulse_RX_7600XT.jpg",
+        product_url: null,
+        dimension: "24.0cm x 11.9cm x 4.6cm",
+        color: "Black",
+        core_clock: 2755,
+        memory_size: 16,
+        memory_type: "GDDR6",
+        power_connectors: "8-pin x 1",
+        wattage: 190,
+        card_bus: "128-bit",
+        gpu_category: "consumer",
+        gpu_subcategory: "gaming"
+      },
+
+      selectedStorage: {
+        id: 11,
+        name: "Samsung 870 EVO 1TB",
+        price: 599.00,
+        image_url: "images/STORAGE/SAMSUNG_870_EVO_SATA_SSD_1TB.jpg",
+        product_url: null,
+        interface: "SATA",
+        form_factor: "2.5\"",
+        readwrite: "Read 560MB/s / Write 530MB/s",
+        power: "4W",
+        capacity: "1TB",
+        storage_type: "SATA SSD",
+        nand: "V-NAND",
+        warranty: "5 Years"
+      },
+
+      selectedCase: {
+        id: 9,
+        name: "Corsair 4000D Airflow",
+        price: 349.00,
+        image_url: "images/CASE/Corsair_4000D_Airflow.jpg",
+        product_url: null,
+        dimensions: "453 x 230 x 466 mm",
+        form_factor: "ATX Mid Tower",
+        materials: "Steel, Tempered Glass",
+        mainboard_support: "ATX, Micro-ATX, Mini-ITX",
+        color: "White",
+        front_panel: "1 x USB-C, 1 x USB 3.0, Audio Combo",
+        side_panel: "Tempered Glass",
+        expansion_slot: 7,
+        ssd_slot: 2,
+        hdd_slot: 3,
+        gpu_length: "360 mm",
+        gpu_length_max_mm: 360,
+        cpuCooler_height: "170 mm",
+        cpu_cooler_height_max_mm: 170,
+        psu_length: "180 mm",
+        weight: 7.80
+      },
+
+      selectedPSU: {
+        id: 2,
+        name: "Cooler Master MWE 650 Bronze V2",
+        price: 289.00,
+        image_url: "images/PSU/COOLER_MASTER_MWE_650_BRONZE_V2.png",
+        product_url: null,
+        EPS_connector: "1 x 4+4 Pin EPS",
+        SATA_connector: "6 x SATA",
+        Dimensions: "150 x 86 x 140 mm",
+        Modular: "Non-Modular",
+        color: "Black",
+        PSU_compatibility: "ATX 12V v2.52",
+        PCIe_connector: "2 x 6+2 Pin PCIe",
+        form_factor: "ATX",
+        power: 650,
+        efficiency: "80+ Bronze",
+        warranty: "5 Years",
+        weight: 1.40
+      }
+    },
+    mid: {
+      selectedCPU: {
+        id: 16,
+        name: "AMD Ryzen 5 7500F",
+        brand: "AMD",
+        price: 619.00,
+        image_url: "images/CPU/AMD_RYZEN_5_7000_SERIES.avif",
+        product_url: null,
+        cores: 6,
+        threads: 12,
+        base_clock: 3.70,
+        boost_clock: 5.00,
+        socket: "AM5",
+        dimension: "5nm",
+        wattage: 65,
+        cpu_category: "consumer"
+      },
+
+      selectedCpuCooler: {
+        id: 9,
+        name: "Arctic Liquid Freezer II 240",
+        price: 329.00,
+        image_url: "images/CPUCOOLER/LIQUID_FREEZER_II_240.jpg",
+        product_url: null,
+        liquid_cooling: 1,
+        dimension: "277mm (L) x 120mm (W) x 38mm (H)",
+        color: "Black",
+        height_mm: 277,
+        heatpipes: "Pump-based",
+        tdp: 250
+      },
+
+      selectedMotherboard: {
+        id: 19,
+        name: "MSI B650 GAMING PLUS WIFI",
+        price: 749.00,
+        image_url: "images/MOTHERBOARD/MSI_B650_GAMING_PLUS_WIFI.png",
+        product_url: null,
+        CPU: "AM5",
+        cpu_socket: "AM5",
+        chipset: "AMD B650",
+        memory: "4 x DDR5, up to 128GB",
+        memory_type: "DDR5",
+        memory_speed: "6400+",
+        LAN: "2.5Gb LAN",
+        wireless_connection: "WiFi 6E + Bluetooth 5.3",
+        expansion_slot: "PCIe 4.0 x16",
+        storage_interface: "3 x M.2, 6 x SATA 6Gb/s",
+        form_factor: "ATX",
+        wattage: 65
+      },
+
+      selectedRAM: {
+        id: 8,
+        name: "Kingston Fury Beast 32GB DDR5 5200MHz",
+        price: 749.00,
+        image_url: "images/RAM/KINGSTON_FURY_BEAST_32GB_DDR5_5200MHZ.jpg",
+        product_url: null,
+        memory_speed: "5200MHz",
+        memory_size: 32,
+        memory_type: "DDR5",
+        color: "Black",
+        wattage: 4
+      },
+
+      selectedGPU: {
+        id: 6,
+        name: "Sapphire Radeon RX 9060 XT OC NITRO+ 16GB",
+        brand: "AMD",
+        price: 1859.00,
+        image_url: "images/GPU/SAPPHIRE_RX9060XT_OC_NITRO+.jpg",
+        product_url: null,
+        dimension: "30.0cm x 13.1cm x 5.5cm",
+        color: "Silver",
+        core_clock: 2780.00,
+        memory_size: 16,
+        memory_type: "GDDR6X",
+        power_connectors: "8-pin x1",
+        wattage: 375,
+        card_bus: "128-bit",
+        gpu_category: "consumer",
+        gpu_subcategory: "gaming"
+      },
+
+      selectedStorage: {
+        id: 2,
+        name: "Samsung 970 EVO Plus 1TB",
+        price: 550.00,
+        image_url: "images/STORAGE/samsung_970evo_1tb.jpg",
+        product_url: null,
+        interface: "NVMe",
+        form_factor: "M.2",
+        readwrite: "Read 3500MB/s / Write 3300MB/s",
+        power: "5W",
+        capacity: "1TB",
+        storage_type: "M.2 SSD",
+        nand: "V-NAND",
+        warranty: "5 Years"
+      },
+
+      selectedCase: {
+        id: 18,
+        name: "Lian Li PC-O11 Dynamic",
+        price: 699.00,
+        image_url: "images/CASE/Lian_Li_PC-O11_Dynamic.jpg",
+        product_url: null,
+        dimensions: "465 x 285 x 460 mm",
+        form_factor: "ATX Mid Tower",
+        materials: "Aluminum, Tempered Glass, Steel",
+        mainboard_support: "E-ATX, ATX, Micro-ATX, Mini-ITX",
+        color: "Black",
+        front_panel: "1 x USB-C, 2 x USB 3.0, Audio Combo",
+        side_panel: "Tempered Glass",
+        expansion_slot: 8,
+        ssd_slot: 6,
+        hdd_slot: 4,
+        gpu_length: "422 mm",
+        gpu_length_max_mm: 422,
+        cpuCooler_height: "167 mm",
+        cpu_cooler_height_max_mm: 167,
+        psu_length: "220 mm",
+        weight: 11.80
+      },
+
+      selectedPSU: {
+        id: 1,
+        name: "Corsair RM850e 850W 80+ Gold",
+        price: 549.00,
+        image_url: "images/PSU/CORSAIR_RM850E_80PLUS_GOLD_ATX.jpg",
+        product_url: "https://www.tmt.my/products/corsair-rm-series-rm85...",
+        EPS_connector: "2 x 4+4 Pin EPS",
+        SATA_connector: "8 x SATA",
+        Dimensions: "150 x 86 x 160 mm",
+        Modular: "Fully Modular",
+        color: "Black",
+        PSU_compatibility: "ATX 3.0 / PCIe 5.0 Ready",
+        PCIe_connector: "3 x 6+2 Pin PCIe",
+        form_factor: "ATX",
+        power: 850,
+        efficiency: "80+ Gold",
+        warranty: "10 Years",
+        weight: 1.65
+      }
+    },
+
+    high: {
+      selectedCPU: {
+        id: 44,
+        name: "Ryzen 7 9800X3D",
+        brand: "AMD",
+        price: 1999.00,
+        image_url: "images/CPU/AMD_RYZEN_7_9000_SERIES.avif",
+        product_url: null,
+        cores: 8,
+        threads: 16,
+        base_clock: 4.20,
+        boost_clock: 5.20,
+        socket: "AM5",
+        dimension: "4nm",
+        wattage: 120,
+        cpu_category: "consumer"
+      },
+
+      selectedCpuCooler: {
+        id: 26,
+        name: "TRYX PANORAMA P360A ARGB AIO Liquid Cooling",
+        price: 1699.00,
+        image_url: "images/CPUCOOLER/TRYX_PANORAMA_P360A_ARGB_AIO.jpg",
+        product_url: null,
+        liquid_cooling: 1,
+        dimension: "399.5 x 120 x 30 mm",
+        color: "black",
+        height_mm: 400,
+        heatpipes: "Pump-based",
+        tdp: 350
+      },
+
+      selectedMotherboard: {
+        id: 27,
+        name: "ASUS ROG Crosshair X870E Hero",
+        price: 3499.00,
+        image_url: "images/MOTHERBOARD/ASUS_ROG_CROSSHAIR_X870E_HERO.jpg",
+        product_url: null,
+        CPU: "AMD",
+        cpu_socket: "AM5",
+        chipset: "AMD X870E",
+        memory: "4 x DDR5, up to 128GB",
+        memory_type: "DDR5",
+        memory_speed: "8400+",
+        LAN: "2.5Gb LAN",
+        wireless_connection: "WiFi 7 + Bluetooth 5.4",
+        expansion_slot: "PCIe 5.0 x16 + PCIe 5.0 x8",
+        storage_interface: "5 x M.2, 8 x SATA 6Gb/s",
+        form_factor: "ATX",
+        wattage: 95
+      },
+
+      selectedRAM: {
+        id: 26,
+        name: "Corsair Dominator Platinum RGB 64GB DDR5",
+        price: 1999.00,
+        image_url: "images/RAM/CORSAIR_DOMINATOR_PLATINUM_RGB_64GB_DDR5_BLACK.png",
+        product_url: null,
+        memory_speed: "6400MHz",
+        memory_size: 64,
+        memory_type: "DDR5",
+        color: "Black",
+        wattage: 10
+      },
+
+      selectedGPU: {
+        id: 43,
+        name: "ASUS ROG Astral RTX 5090 OC",
+        brand: "NVIDIA",
+        price: 16999.00,
+        image_url: "images/GPU/ASUS_ROG_STRIX_RTX_5090_OC.jpg",
+        product_url: null,
+        dimension: "35.7cm x 15.0cm x 7.6cm",
+        color: "Black",
+        core_clock: 2610.00,
+        memory_size: 32,
+        memory_type: "GDDR7",
+        power_connectors: "16-pin x 1",
+        wattage: 575,
+        card_bus: "512-bit",
+        gpu_category: "consumer",
+        gpu_subcategory: "enthusiast"
+      },
+
+      selectedStorage: {
+        id: 6,
+        name: "Samsung 990 Pro 2TB",
+        price: 1299.00,
+        image_url: "images/STORAGE/SAMSUNG_990_PRO_2TB.jpg",
+        product_url: null,
+        interface: "M.2 PCIe 4.0 x4",
+        form_factor: "M.2",
+        readwrite: "Read 7450MB/s / Write 6900MB/s",
+        power: "6W",
+        capacity: "2TB",
+        storage_type: "M.2 SSD",
+        nand: "V-NAND",
+        warranty: "5 Years"
+      },
+
+      selectedCase: {
+        id: 2,
+        name: "NZXT H9 Flow",
+        price: 749.00,
+        image_url: "images/CASE/NZXT_H9_Flow.jpg",
+        product_url: null,
+        dimensions: "495 x 290 x 466 mm",
+        form_factor: "Mid Tower",
+        materials: "Steel, Tempered Glass, Plastic",
+        mainboard_support: "ATX, Micro-ATX, Mini-ITX",
+        color: "Black",
+        front_panel: "1 x USB-C, 2 x USB 3.2, Audio Jack",
+        side_panel: "Tempered Glass",
+        expansion_slot: 7,
+        ssd_slot: 4,
+        hdd_slot: 2,
+        gpu_length: "435 mm",
+        gpu_length_max_mm: 435,
+        cpuCooler_height: "165 mm",
+        cpu_cooler_height_max_mm: 165,
+        psu_length: "200 mm",
+        weight: 13.10
+      },
+
+      selectedPSU: {
+        id: 27,
+        name: "ASUS ROG Strix 1200P 1200W 80+ Platinum",
+        price: 1539.00,
+        image_url: "images/PSU/ASUS_ROG_STRIX_1200W_80PLUS_PLATINUM.avif",
+        product_url: null,
+        EPS_connector: "2 x 8-pin",
+        SATA_connector: "10",
+        Dimensions: "150 x 86 x 180 mm",
+        Modular: "Fully Modular",
+        color: "Black",
+        PSU_compatibility: "ATX 3.1, PCIe 5.1 Ready",
+        PCIe_connector: "8 x 6+2-pin",
+        form_factor: "ATX",
+        power: 1200,
+        efficiency: "80+ Platinum",
+        warranty: "10 Years",
+        weight: 2.50
+      }
+    }
+  };
+  </script>
+
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+
+      const params = new URLSearchParams(window.location.search);
+      const presetKey = params.get('preset');
+
+      if (presetKey && !localStorage.getItem('__preset_loaded')) {
+        localStorage.setItem('__preset_loaded', '1');
+        loadPresetBuild(presetKey);
+        throw new Error('Preset loading – stop UI render');
+      }
+
+      localStorage.removeItem('__preset_loaded');
+
       const modal = document.getElementById('Modal');
       const modalTitle = document.getElementById('modal-title');
       const listElement = document.getElementById('List');
@@ -175,6 +626,7 @@
       const checkCompatibilityBtn = document.getElementById("checkCompatibilityBtn");
       const compatibilityResult = document.getElementById("compatibilityResult"); 
       const saveBuildBtn = document.getElementById('saveBuildBtn');
+
 
       displayUserBuildsModal();
 
@@ -246,6 +698,22 @@
         totalWattageEl.textContent = `Estimated Wattage: ${totalWattage}W`;
 
       }
+
+      function getGpuLengthMM(gpu) {
+        if (!gpu) return null;
+
+        // Preferred explicit field
+        if (gpu.gpu_length_mm) return parseFloat(gpu.gpu_length_mm);
+
+        // Fallback: extract from dimension string
+        if (gpu.dimension) {
+          const match = gpu.dimension.match(/([\d.]+)\s*mm/i);
+          if (match) return parseFloat(match[1]);
+        }
+
+        return null;
+      }
+      
       function updateCompatibilityButton() {
         const selected = {
           cpu: JSON.parse(localStorage.getItem("selectedCPU")),
@@ -265,20 +733,38 @@
         if(selected.ram && selected.motherboard && selected.motherboard.memory && !selected.motherboard.memory.includes(selected.ram.memory_type))
           issues.push('RAM type mismatch');
 
-        if(selected.psu){
-          const required = (parseInt(selected.cpu?.wattage)||0)+(parseInt(selected.gpu?.wattage)||0)+150;
-          if(parseInt(selected.psu.power||0)<required)
-            issues.push('PSU may be insufficient');
+        if (selected.psu) {
+          const cpuWatt = parseInt(selected.cpu?.wattage) || 0;
+          const gpuWatt = parseInt(selected.gpu?.wattage) || 0;
+          const extraWatt = 80 + 14 + 12 + 30;
+          const totalLoad = cpuWatt + gpuWatt + extraWatt;
+          const efficiencyFactor = 0.8;
+          const headroomFactor = 1.1;
+          const requiredPSU = Math.ceil((totalLoad / efficiencyFactor) * headroomFactor);
+
+          if (parseInt(selected.psu.power || 0) < requiredPSU) {
+            issues.push(`PSU may be insufficient (recommended: ${requiredPSU}W)`);
+          }
         }
 
-        if(selected.case && selected.motherboard?.form_factor && selected.case.mainboard_support && !selected.case.mainboard_support.includes(selected.motherboard.form_factor))
-          issues.push('Case does not support motherboard');
+        // ✅ FIXED: Use direct property access, same as checkCompatibility()
+        const gpuLength = selected.gpu?.gpu_length_mm;
+        const caseLimit = selected.case?.gpu_length_max_mm;
 
-        if(selected.case && selected.gpu?.gpu_length && selected.case.gpu_length && parseInt(selected.gpu.gpu_length)>parseInt(selected.case.gpu_length))
-          issues.push('GPU length exceeds case limit');
+        if (gpuLength && caseLimit && gpuLength > caseLimit) {
+          issues.push(`GPU length (${gpuLength}mm) exceeds case limit (${caseLimit}mm)`);
+        }
 
-        if(selected.case && selected.cooler?.dimension && selected.case.cpuCooler_height && parseInt(selected.cooler.dimension)>parseInt(selected.case.cpuCooler_height))
-          issues.push('CPU cooler too tall');
+        if (
+          selected.case &&
+          selected.cooler &&
+          selected.cooler.liquid_cooling === 0 &&
+          selected.cooler.height_mm && 
+          selected.case.cpuCooler_height &&
+          parseInt(selected.cooler.height_mm) > parseInt(selected.case.cpuCooler_height)
+        ) {
+          issues.push(`CPU cooler height (${selected.cooler.height_mm}mm) exceeds case limit (${selected.case.cpuCooler_height}mm)`);
+        }
 
         // Update button
         if (issues.length > 0) {
@@ -305,8 +791,15 @@
 
         const issues = [];
 
-        if(selected.cpu && selected.motherboard && selected.motherboard.CPU && !selected.motherboard.CPU.includes(selected.cpu.socket))
-          issues.push(`❌ CPU socket (${selected.cpu.socket}) not compatible with motherboard (${selected.motherboard.CPU})`);
+        if (
+          selected.cpu &&
+          selected.motherboard &&
+          selected.motherboard.cpu_socket && 
+          !selected.motherboard.cpu_socket.split(',').map(s => s.trim().toUpperCase()).includes(selected.cpu.socket.toUpperCase())
+        ) {
+          issues.push(`❌ CPU socket (${selected.cpu.socket}) not compatible with motherboard (${selected.motherboard.cpu_socket})`);
+        }
+
 
         if(selected.ram && selected.motherboard && selected.motherboard.memory && !selected.motherboard.memory.includes(selected.ram.memory_type))
           issues.push(`❌ RAM type (${selected.ram.memory_type}) not supported by motherboard (${selected.motherboard.memory})`);
@@ -317,14 +810,29 @@
             issues.push(`❌ PSU power may be insufficient. Recommended ≥ ${required}W`);
         }
 
-        if(selected.case && selected.motherboard?.form_factor && selected.case.mainboard_support && !selected.case.mainboard_support.includes(selected.motherboard.form_factor))
+        if(selected.case && selected.motherboard?.form_factor && selected.case.mainboard_support && !selected.case.mainboard_support.includes(selected.motherboard.form_factor)) {
           issues.push(`❌ Case does not support ${selected.motherboard.form_factor} motherboards`);
+        }
 
-        if(selected.case && selected.gpu?.gpu_length && selected.case.gpu_length && parseInt(selected.gpu.gpu_length)>parseInt(selected.case.gpu_length))
-          issues.push(`❌ GPU length exceeds case limit`);
+        const gpuLength = selected.gpu?.gpu_length_mm; // Direct property access
+        const caseLimit = selected.case?.gpu_length_max_mm;
 
-        if(selected.case && selected.cooler?.dimension && selected.case.cpuCooler_height && parseInt(selected.cooler.dimension)>parseInt(selected.case.cpuCooler_height))
-          issues.push(`❌ CPU cooler height exceeds case limit`);
+        if (gpuLength && caseLimit && gpuLength > caseLimit) {
+          issues.push(
+            `❌ GPU length (${gpuLength} mm) exceeds case limit (${caseLimit} mm)`
+          );
+        }
+
+        if (
+          selected.case &&
+          selected.cooler &&
+          selected.cooler.liquid_cooling === 0 && // air cooler
+          selected.cooler.height_mm && 
+          selected.case.cpuCooler_height &&
+          parseInt(selected.cooler.height_mm) > parseInt(selected.case.cpuCooler_height)
+        ) {
+          issues.push(`❌ CPU cooler height (${selected.cooler.height_mm}mm) exceeds case limit (${selected.case.cpuCooler_height}mm)`);
+        }
 
         // Update the modal body
         const modalBody = document.getElementById("compatibilityModalBody");
@@ -555,10 +1063,10 @@
 
           div.innerHTML = `
             <span style="cursor:pointer;"
-              onclick="loadBuild(${index})">
+              onclick="loadSavedBuild(${index})">
               ${build.build_name || build.name}
             </span>
-            <button class="btn btn-sm btn-danger" onclick="deleteBuild(${index})">
+            <button class="btn btn-sm btn-danger" onclick="deleteSavedBuild(${index})">
               Delete
             </button>
           `;
@@ -574,27 +1082,68 @@
         modal.show();
       });
 
-      function loadBuild(index) {
+      function deleteSavedBuild(index) {
         const storageKey = getUserStorageKey();
         const builds = JSON.parse(localStorage.getItem(storageKey)) || [];
-        const build = builds[index];
+        builds.splice(index, 1); // remove the build
+        localStorage.setItem(storageKey, JSON.stringify(builds));
+        displayUserBuildsModal(); // refresh the modal list
+      }
+
+      window.loadSavedBuild = async function(index) {
+        const token = localStorage.getItem('token');
+        let build;
+
+        if (token) {
+          // 🔐 Load from DB
+          const res = await fetch("http://localhost:3001/api/my-builds", {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          const builds = await res.json();
+          build = builds[index];
+        } else {
+          // 👤 Load from localStorage
+          const storageKey = getUserStorageKey();
+          const builds = JSON.parse(localStorage.getItem(storageKey)) || [];
+          build = builds[index];
+        }
+
         if (!build) return;
 
-        // Load components into localStorage
-        Object.entries(build.components).forEach(([key, value]) => {
-          localStorage.setItem(key, JSON.stringify(value));
+        // Clear old selections
+        Object.values(keyMap).forEach(k => localStorage.removeItem(k));
+
+        // Map DB response → localStorage
+        const componentMap = {
+          selectedCPU: build.cpu,
+          selectedGPU: build.gpu,
+          selectedMotherboard: build.motherboard,
+          selectedRAM: build.ram,
+          selectedCpuCooler: build.cpuCooler,
+          selectedStorage: build.storage,
+          selectedCase: build.case,
+          selectedPSU: build.psu
+        };
+
+        Object.entries(componentMap).forEach(([key, value]) => {
+          if (value) localStorage.setItem(key, JSON.stringify(value));
         });
 
         // Refresh UI
         Object.entries(keyMap).forEach(([label, key]) => {
           const item = JSON.parse(localStorage.getItem(key));
           const div = document.getElementById(divMap[label]);
+
           if (item && div) {
             div.innerHTML = `
               <div class="d-flex align-items-center mt-2">
-                <img src="${item.image_url}" alt="${item.name}" style="width:60px;height:auto;" class="me-3 rounded">
-                <div><div class="fw-bold">${item.name}</div><div class="small">Price: RM${parseFloat(item.price).toFixed(2)}</div></div>
-                <button class="btn btn-sm btn-outline-danger ms-2" onclick="clearComponent('${label}')">&times;</button>
+                <img src="${item.image_url}" style="width:60px" class="me-3 rounded">
+                <div>
+                  <div class="fw-bold">${item.name}</div>
+                  <div class="small">Price: RM${parseFloat(item.price).toFixed(2)}</div>
+                </div>
+                <button class="btn btn-sm btn-outline-danger ms-2"
+                  onclick="clearComponent('${label}')">&times;</button>
               </div>
             `;
           } else if (div) div.innerHTML = '';
@@ -602,72 +1151,34 @@
 
         updateTotals();
         updateCompatibilityButton();
-      }
-
-      function deleteBuild(index) {
-        const storageKey = getUserStorageKey();
-        const builds = JSON.parse(localStorage.getItem(storageKey)) || [];
-        builds.splice(index, 1); // remove the build
-        localStorage.setItem(storageKey, JSON.stringify(builds));
-        displayUserBuildsModal(); // refresh the modal list
-      }
-
-      window.loadBuild = function(index) {
-        const token = localStorage.getItem('token');
-
-        if (token) {
-          // Logged in → Load from DB list
-          fetch("http://localhost:3001/api/my-builds", {
-            headers: {
-              "Authorization": `Bearer ${token}`
-            }
-          })
-          .then(res => res.json())
-          .then(builds => {
-            const build = builds[index];
-            if (!build) return;
-
-            const componentMap = {
-              selectedCPU: build.cpu,
-              selectedGPU: build.gpu,
-              selectedMotherboard: build.motherboard,
-              selectedRAM: build.ram,
-              selectedCpuCooler: build.cpucooler,
-              selectedStorage: build.storage,
-              selectedCase: build.case,
-              selectedPSU: build.psu
-            };
-
-            Object.entries(componentMap).forEach(([key, value]) => {
-              if (value) localStorage.setItem(key, JSON.stringify(value));
-            });
-
-            location.reload(); // easiest way to refresh UI
-          });
-
-        } else {
-          // Guest → load from localStorage
-          const storageKey = getUserStorageKey();
-          const builds = JSON.parse(localStorage.getItem(storageKey)) || [];
-          const build = builds[index];
-          if (!build) return;
-
-          Object.entries(build.components).forEach(([key, value]) => {
-            localStorage.setItem(key, JSON.stringify(value));
-          });
-
-          location.reload();
-        }
       };
 
 
-      window.deleteBuild = function(index) {
+
+      window.deleteSavedBuild = function(index) {
         const storageKey = getUserStorageKey();
         const builds = JSON.parse(localStorage.getItem(storageKey)) || [];
         builds.splice(index, 1); // remove the build
         localStorage.setItem(storageKey, JSON.stringify(builds));
         displayUserBuildsModal(); // refresh the modal list
       };
+
+      function loadPresetBuild(presetKey) {
+        const preset = PRESET_BUILDS[presetKey];
+        if (!preset) return;
+
+        // Clear existing build
+        Object.keys(preset).forEach(key => {
+          localStorage.setItem(key, JSON.stringify(preset[key]));
+        });
+
+        // Clean URL
+        const url = new URL(window.location.href);
+        url.searchParams.delete('preset');
+        window.history.replaceState({}, '', url);
+
+        location.reload();
+      }
 
     });  
   </script>

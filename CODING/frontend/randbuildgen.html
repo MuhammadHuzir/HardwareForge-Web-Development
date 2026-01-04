@@ -71,6 +71,12 @@
 <script>
 const apiBase = 'http://localhost:3001/api';
 
+function getRandomItem(arr) {
+  if (!Array.isArray(arr) || arr.length === 0) return null;
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+
 // Fetch components and optionally filter by brand and PC type
 async function fetchComponents(endpoint, brand = 'any', pcType = null) {
     try {
@@ -218,62 +224,120 @@ document.getElementById('generateBtn').addEventListener('click', async () => {
     const gpuBrand = document.getElementById('gpuBrand').value;
 
     try {
-        const [cpus, gpus, motherboards, rams, cpucoolers, storages, cases, psus] = await Promise.all([
-            fetchComponents('cpus', cpuBrand, pcType),
-            fetchComponents('gpus', gpuBrand),
-            fetchComponents('motherboards'),
-            fetchComponents('rams'),
-            fetchComponents('cpucoolers'),
-            fetchComponents('storages'),
-            fetchComponents('cases'),
-            fetchComponents('psus')
-        ]);
+      const [cpus, gpus, motherboards, rams, cpucoolers, storages, cases, psus] =
+      await Promise.all([
+        fetchComponents('cpus', cpuBrand, pcType),
+        fetchComponents('gpus', gpuBrand),
+        fetchComponents('motherboards'),
+        fetchComponents('rams'),
+        fetchComponents('cpucoolers'),
+        fetchComponents('storages'),
+        fetchComponents('cases'),
+        fetchComponents('psus')
+      ]);
 
-        // Check if PC type filter removed all CPUs
-        if (!cpus.length) {
-            status.textContent = `❌ No ${pcType} CPUs found. Try selecting "Any" CPU brand or a different PC type.`;
-            status.style.color = "#dc3545";
-            return;
+      /* =========================
+        HELPER
+      ========================= */
+      function getBestUnderBudget(items, maxPrice) {
+        return items
+          .filter(i => Number(i.price) <= maxPrice)
+          .sort((a, b) => Number(b.price) - Number(a.price))[0] || null;
+      }
+
+      /* =========================
+        BASIC VALIDATION
+      ========================= */
+      if (!cpus.length || !gpus.length || !motherboards.length || !rams.length ||
+          !storages.length || !cases.length || !psus.length) {
+        status.textContent = "❌ Missing components in database.";
+        status.style.color = "#dc3545";
+        return;
+      }
+
+      const totalBudget = budget || Infinity;
+
+      /* =========================
+        INITIAL BUDGET SPLIT
+      ========================= */
+      const split = {
+        gpu: totalBudget * 0.40,
+        cpu: totalBudget * 0.25,
+        motherboard: totalBudget * 0.10,
+        ram: totalBudget * 0.08,
+        storage: totalBudget * 0.07,
+        psu: totalBudget * 0.06,
+        case: totalBudget * 0.04
+      };
+
+      /* =========================
+        INITIAL BUILD (PASS 1)
+      ========================= */
+      const build = {
+        selectedGPU: getBestUnderBudget(gpus, split.gpu),
+        selectedCPU: getBestUnderBudget(cpus, split.cpu),
+        selectedMotherboard: getBestUnderBudget(motherboards, split.motherboard),
+        selectedRAM: getBestUnderBudget(rams, split.ram),
+        selectedStorage: getBestUnderBudget(storages, split.storage),
+        selectedPSU: getBestUnderBudget(psus, split.psu),
+        selectedCase: getBestUnderBudget(cases, split.case),
+        selectedCpuCooler: getRandomItem(cpucoolers)
+      };
+
+      /* =========================
+        FALLBACK (PREVENT NULLS)
+      ========================= */
+      if (!build.selectedGPU)
+        build.selectedGPU = getBestUnderBudget(gpus, totalBudget);
+
+      if (!build.selectedCPU)
+        build.selectedCPU = getBestUnderBudget(cpus, totalBudget);
+
+      /* =========================
+        CALCULATE TOTAL
+      ========================= */
+      let totalPrice = Object.values(build)
+        .reduce((sum, item) => sum + (Number(item?.price) || 0), 0);
+
+      /* =========================
+        🔥 UPGRADE PASS (THE MISSING PART)
+      ========================= */
+      let remaining = totalBudget - totalPrice;
+
+      // Try to upgrade GPU with leftover money
+      if (remaining > 0) {
+        const upgradedGPU = getBestUnderBudget(
+          gpus,
+          Number(build.selectedGPU.price) + remaining
+        );
+
+        if (upgradedGPU && upgradedGPU.id !== build.selectedGPU.id) {
+          build.selectedGPU = upgradedGPU;
         }
+      }
 
-        // Check if brand filter removed all items
-        if ((cpuBrand !== 'any' && !cpus.length) || (gpuBrand !== 'any' && !gpus.length)) {
-            status.textContent = `❌ No components found for selected brand(s). Try selecting "Any".`;
-            status.style.color = "#dc3545";
-            return;
-        }
+      // Recalculate after upgrade
+      totalPrice = Object.values(build)
+        .reduce((sum, item) => sum + (Number(item?.price) || 0), 0);
 
-        // Check if any category is empty
-        if (!gpus.length || !motherboards.length || !rams.length || !cpucoolers.length || !storages.length || !cases.length || !psus.length) {
-            status.textContent = "❌ One or more component categories have no available items. Check your database.";
-            status.style.color = "#dc3545";
-            return;
-        }
+      /* =========================
+        FINAL BUDGET CHECK
+      ========================= */
+      if (budget && totalPrice > budget) {
+        status.textContent =
+          `⚠️ Build exceeded budget (RM${totalPrice.toFixed(2)})`;
+        status.style.color = "#ffc107";
+        return;
+      }
 
-        const build = {
-            selectedCPU: getRandomItem(cpus),
-            selectedGPU: getRandomItem(gpus),
-            selectedMotherboard: getRandomItem(motherboards),
-            selectedRAM: getRandomItem(rams),
-            selectedCpuCooler: getRandomItem(cpucoolers),
-            selectedStorage: getRandomItem(storages),
-            selectedCase: getRandomItem(cases),
-            selectedPSU: getRandomItem(psus)
-        };
+      /* =========================
+        SAVE + REDIRECT
+      ========================= */
+      Object.entries(build).forEach(([key, value]) => {
+        if (value) localStorage.setItem(key, JSON.stringify(value));
+      });
 
-        const totalPrice = Object.values(build).reduce((sum, item) => sum + (parseFloat(item?.price) || 0), 0);
-        if (budget && totalPrice > budget) {
-            status.textContent = `⚠️ Generated build exceeds your budget (RM${totalPrice.toFixed(2)}). Try increasing budget or generating again.`;
-            status.style.color = "#ffc107";
-            return;
-        }
-
-        Object.entries(build).forEach(([key, value]) => {
-            if (value) localStorage.setItem(key, JSON.stringify(value));
-        });
-
-        window.location.href = '/build.html';
-
+      window.location.href = '/build.html';
     } catch (err) {
         console.error(err);
         status.textContent = "❌ Failed to generate build. Please try again.";

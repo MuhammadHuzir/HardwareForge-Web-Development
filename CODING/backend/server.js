@@ -101,7 +101,7 @@ app.get('/api/my-builds', authenticateToken, (req, res) => {
 
 // get gpu data
 app.get('/api/gpus', (req, res) => {
-  const query = 'SELECT id, name, brand, price, image_url, product_url, dimension, color, core_clock, memory_size, memory_type, power_connectors, wattage, card_bus, gpu_category, gpu_subcategory FROM gpus';
+  const query = 'SELECT id, name, brand, price, image_url, product_url, dimension, gpu_length_mm, color, core_clock, memory_size, memory_type, power_connectors, wattage, card_bus, gpu_category, gpu_subcategory FROM gpus';
   db.query(query, (err, results) => {
     if (err) {
       console.error(' Error fetching GPUs:', err);
@@ -176,8 +176,8 @@ app.get('/api/psus', (req, res) => {
 // get cases data
 app.get('/api/cases', (req, res) => {
   const query = `
-    SELECT id, name, price, image_url, product_url, dimensions, form_factor, materials, mainboard_support, front_panel, 
-    side_panel, expansion_slot, ssd_slot, hdd_slot, gpu_length, cpuCooler_height, psu_length, weight
+    SELECT id, name, price, image_url, product_url, dimensions, form_factor, materials, mainboard_support, color, front_panel, 
+    side_panel, expansion_slot, ssd_slot, hdd_slot, gpu_length, gpu_length_max_mm, cpuCooler_height, cpu_cooler_height_max_mm, psu_length, weight
     FROM cases
   `;
   
@@ -572,8 +572,6 @@ app.get('/api/admin/analysis', authenticateAdmin, (req, res) => {
   });
 });
 
-
-
 // save build
 app.post('/api/save-build', authenticateToken, (req, res) => {
   const { build_name, cpus_id, gpus_id, motherboards_id, rams_id, cpucoolers_id, storages_id, cases_id, psus_id } = req.body;
@@ -703,7 +701,7 @@ app.get('/api/completed-builds', (req, res) => {
     }
     console.log(`[COMPLETED-BUILDS] ✅ Successfully fetched ${results.length} completed builds`);
     if (results.length > 0) {
-      console.log('[COMPLETED-BUILDS] Sample build IDs:', results.slice(0, 3).map(b => ({ id: b.id, completed_id: b.completed_id, title: b.title })));
+      console.log('[COMPLETED-BUILDS] Sample build IDs:', results.slice(0, 4).map(b => ({ id: b.id, completed_id: b.completed_id, title: b.title })));
     }
     res.json(results);
   });
