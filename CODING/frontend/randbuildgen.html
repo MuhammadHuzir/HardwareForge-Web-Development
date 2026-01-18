@@ -4,9 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Random Build Generator - HardwareForge</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="public/css/bootstrap.min.css">
   <link rel="stylesheet" href="public/css/randbuildgen.css">
   <link rel="stylesheet" href="public/css/dropdown.css" />
+  <link rel="stylesheet" href="public/css/sidebar.css" />
+  <script src="public/js/security.js" defer></script>
 </head>
 <body class="dark">
   <div class="wrapper d-flex">
@@ -236,18 +239,15 @@ document.getElementById('generateBtn').addEventListener('click', async () => {
         fetchComponents('psus')
       ]);
 
-      /* =========================
-        HELPER
-      ========================= */
+      //HELPER
       function getBestUnderBudget(items, maxPrice) {
         return items
           .filter(i => Number(i.price) <= maxPrice)
           .sort((a, b) => Number(b.price) - Number(a.price))[0] || null;
       }
 
-      /* =========================
-        BASIC VALIDATION
-      ========================= */
+      //BASIC VALIDATION
+
       if (!cpus.length || !gpus.length || !motherboards.length || !rams.length ||
           !storages.length || !cases.length || !psus.length) {
         status.textContent = "❌ Missing components in database.";
@@ -257,9 +257,8 @@ document.getElementById('generateBtn').addEventListener('click', async () => {
 
       const totalBudget = budget || Infinity;
 
-      /* =========================
-        INITIAL BUDGET SPLIT
-      ========================= */
+      //INITIAL BUDGET SPLIT
+
       const split = {
         gpu: totalBudget * 0.40,
         cpu: totalBudget * 0.25,
@@ -270,9 +269,8 @@ document.getElementById('generateBtn').addEventListener('click', async () => {
         case: totalBudget * 0.04
       };
 
-      /* =========================
-        INITIAL BUILD (PASS 1)
-      ========================= */
+      //INITIAL BUILD (PASS 1)
+
       const build = {
         selectedGPU: getBestUnderBudget(gpus, split.gpu),
         selectedCPU: getBestUnderBudget(cpus, split.cpu),
@@ -284,24 +282,20 @@ document.getElementById('generateBtn').addEventListener('click', async () => {
         selectedCpuCooler: getRandomItem(cpucoolers)
       };
 
-      /* =========================
-        FALLBACK (PREVENT NULLS)
-      ========================= */
+      //FALLBACK (PREVENT NULLS)
       if (!build.selectedGPU)
         build.selectedGPU = getBestUnderBudget(gpus, totalBudget);
 
       if (!build.selectedCPU)
         build.selectedCPU = getBestUnderBudget(cpus, totalBudget);
 
-      /* =========================
-        CALCULATE TOTAL
-      ========================= */
+      //CALCULATE TOTAL
+      
       let totalPrice = Object.values(build)
         .reduce((sum, item) => sum + (Number(item?.price) || 0), 0);
 
-      /* =========================
-        🔥 UPGRADE PASS (THE MISSING PART)
-      ========================= */
+      //🔥 UPGRADE PASS (THE MISSING PART)
+      
       let remaining = totalBudget - totalPrice;
 
       // Try to upgrade GPU with leftover money
@@ -320,9 +314,8 @@ document.getElementById('generateBtn').addEventListener('click', async () => {
       totalPrice = Object.values(build)
         .reduce((sum, item) => sum + (Number(item?.price) || 0), 0);
 
-      /* =========================
-        FINAL BUDGET CHECK
-      ========================= */
+      //FINAL BUDGET CHECK
+
       if (budget && totalPrice > budget) {
         status.textContent =
           `⚠️ Build exceeded budget (RM${totalPrice.toFixed(2)})`;

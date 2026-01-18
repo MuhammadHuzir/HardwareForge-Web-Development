@@ -1,3 +1,7 @@
+body {
+  font-family: 'Rubik', sans-serif;
+}
+
 /* Dark mode background and text */
 body.dark {
   background-color: #121212;
@@ -105,11 +109,53 @@ body.dark .text-muted {
   color: #ffffff !important;
 }
 
-
 /* Grid spacing fix */
 .row.g-4 > [class*="col-"] {
   margin-bottom: 1rem;
 }
+
+/* Uiverse.io style button */
+.btn-build {
+  padding: 1.3em 3em;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #fff;
+  background-color: #0d6efd;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(13, 110, 253, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none; /* remove underline */
+}
+
+.btn-build:hover {
+  background-color: #0b5ed7;
+  box-shadow: 0px 15px 20px rgba(13, 110, 253, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
+}
+
+.btn-build:active {
+  transform: translateY(-1px);
+}
+
+/* Dark mode */
+body.dark .btn-build {
+  background-color: #1a73e8;
+  color: #fff;
+  box-shadow: 0px 8px 15px rgba(255, 255, 255, 0.05);
+}
+
+body.dark .btn-build:hover {
+  background-color: #0b5ed7;
+  color: #fff;
+  box-shadow: 0px 15px 20px rgba(13, 110, 253, 0.4);
+}
+
 
 /* Container padding for larger screens */
 @media (min-width: 768px) {

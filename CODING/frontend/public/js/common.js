@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     authLinks.innerHTML = `
                     <div class="nav-link text-white">Hello, ${user.name}</div>
                     <a href="#" class="nav-link text-white" id="logoutBtn">Logout</a>
-                    <div id="modeToggle" title="Toggle Dark Mode" class="mt-3" style="cursor: pointer; width: 24px; height: 24px; background-color: #ccc; border-radius: 50%;"></div>
                     `;
 
                     // Add logout functionality
@@ -38,10 +37,29 @@ document.addEventListener("DOMContentLoaded", function () {
                     authLinks.innerHTML = `
                     <a href="login.html" class="nav-link text-white">Login</a>
                     <a href="signup.html" class="nav-link text-white">Register</a>
-                    <div id="modeToggle" title="Toggle Dark Mode" class="mt-3" style="cursor: pointer; width: 24px; height: 24px; background-color: #ccc; border-radius: 50%;"></div>
                     `;
                 }
             }
+
+            const modeCheckbox = document.getElementById("modeToggleCheckbox");
+
+            // Set initial state
+            if (modeCheckbox) {
+                modeCheckbox.checked = document.body.classList.contains("light");
+
+                modeCheckbox.addEventListener("change", function () {
+                    if (this.checked) {
+                        document.body.classList.remove("dark");
+                        document.body.classList.add("light");
+                        localStorage.setItem("mode", "light");
+                    } else {
+                        document.body.classList.remove("light");
+                        document.body.classList.add("dark");
+                        localStorage.setItem("mode", "dark");
+                    }
+                });
+            }
+
 
         });
     }
@@ -70,22 +88,6 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!dropdownBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
                 dropdownMenu.classList.remove("show-dropdown");
             }
-            });
-        }
-
-        //dark mode toggle
-        const modeToggle = document.getElementById("modeToggle");
-        if (modeToggle) {
-            modeToggle.addEventListener("click", function () {
-                if (document.body.classList.contains("dark")) {
-                    document.body.classList.remove("dark");
-                    document.body.classList.add("light");
-                    localStorage.setItem("mode", "light"); // save preference
-                } else {
-                    document.body.classList.remove("light");
-                    document.body.classList.add("dark");
-                    localStorage.setItem("mode", "dark"); // save preference
-                }
             });
         }
 

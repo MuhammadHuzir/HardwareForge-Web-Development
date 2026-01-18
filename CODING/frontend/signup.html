@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HardwareForge</title>
+    <title>HardwareForge | Sign Up</title>
     <link rel="stylesheet" href="public/css/bootstrap.min.css" />
     <link rel="stylesheet" href="public/css/signup.css" />
 </head>
@@ -12,28 +12,40 @@
         <img src="/public/images/HardwareForge.png" alt="HardwareForge Logo" class="me-3">
         <span class="fw-bold">HardwareForge</span>
     </a>
-    <div class="d-flex">
+    <div class="auth-wrapper">
+        <form id="signupForm" class="auth-card">
+            <h2 class="auth-title">Create your account</h2>
+            <p class="auth-subtitle">Build smarter with HardwareForge</p>
 
-        <div class="container mt-5">
-            <h1 class="text-center">Sign Up</h1>
-            <form id="signupForm" class="mt-4">
-                <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="username" required />
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="text" class="form-control" id="email" required />
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" required />
-                </div>
-                <button type="submit" class="btn btn-primary">Register</button>
-            </form>
-            <div id="message" class="mb-3"></div>
-        </div>
+            <div class="auth-input">
+            <input type="text" id="username" required />
+            <span>Username</span>
+            </div>
+
+            <div class="auth-input">
+            <input type="email" id="email" required />
+            <span>Email address</span>
+            </div>
+
+            <div class="auth-input">
+            <input type="password" id="password" required />
+            <span>Password</span>
+            </div>
+
+            <button type="submit" class="auth-btn">
+            <span class="btn-text">Register</span>
+            <span class="btn-loader"></span>
+            </button>
+
+            <p class="auth-footer">
+            Already have an account?
+            <a href="login.html">Sign in</a>
+            </p>
+
+            <div id="message" class="text-center mt-2"></div>
+        </form>
     </div>
+
 
   <script>
   document.getElementById('signupForm').addEventListener('submit', async function (e) {
