@@ -19,11 +19,20 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/home.html'));
 });
 
+require('dotenv').config();
+const mysql = require('mysql');
+const fs = require('fs');
+const path = require('path');
+
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'hardwareforge'
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  ssl: {
+    ca: fs.readFileSync(path.join(__dirname, 'ca.pem'))
+  }
 });
 
 db.connect(err => {
