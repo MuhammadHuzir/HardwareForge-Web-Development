@@ -329,7 +329,7 @@
     });
 
     // Initialize
-    fetch('http://localhost:3001/api/cpucoolers')
+    fetch('/api/cpucoolers')
       .then(res => res.json())
       .then(data => {
         coolers = data;

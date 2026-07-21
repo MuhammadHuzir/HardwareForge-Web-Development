@@ -339,7 +339,7 @@
     document.getElementById('clearFiltersBtn').addEventListener('click', clearAllFilters);
 
     // Initialize
-    fetch('http://localhost:3001/api/storages')
+    fetch('/api/storages')
       .then(res => res.json())
       .then(data => {
         storages = data;

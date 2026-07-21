@@ -338,7 +338,7 @@
     });
 
     // Initialize
-    fetch('http://localhost:3001/api/motherboards')
+    fetch('/api/motherboards')
       .then(res => res.json())
       .then(data => {
         motherboards = data;

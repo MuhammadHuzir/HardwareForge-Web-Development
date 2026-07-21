@@ -876,7 +876,7 @@
         modalTitle.textContent = `Select a ${componentType}`;
         listElement.innerHTML = '<li class="list-group-item">Loading...</li>';
         try {
-          const res = await fetch(`http://localhost:3001/api/${endpointMap[componentType]}`);
+          const res = await fetch(`/api/${endpointMap[componentType]}`);
           const data = await res.json();
           listElement.innerHTML = '';
           if (!Array.isArray(data) || data.length === 0) {
@@ -978,7 +978,7 @@
         try {
           if (token) {
             // ✅ Logged in → Save to database
-            const res = await fetch("http://localhost:3001/api/save-build", {
+            const res = await fetch("/api/save-build", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -1033,7 +1033,7 @@
         if (token) {
           // 🔐 Logged in → Fetch from DB
           try {
-            const res = await fetch("http://localhost:3001/api/my-builds", {
+            const res = await fetch("/api/my-builds", {
               headers: {
                 "Authorization": `Bearer ${token}`
               }
@@ -1100,7 +1100,7 @@
 
         if (token) {
           // 🔐 Load from DB
-          const res = await fetch("http://localhost:3001/api/my-builds", {
+          const res = await fetch("/api/my-builds", {
             headers: { Authorization: `Bearer ${token}` }
           });
           const builds = await res.json();

@@ -329,7 +329,7 @@
     });
 
     // Initialize
-    fetch('http://localhost:3001/api/gpus')
+    fetch('/api/gpus')
       .then(res => res.json())
       .then(data => {
         gpus = data;

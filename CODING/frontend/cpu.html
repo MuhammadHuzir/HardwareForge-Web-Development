@@ -341,7 +341,7 @@
     });
 
     // Initialize
-    fetch('http://localhost:3001/api/cpus')
+    fetch('/api/cpus')
       .then(res => res.json())
       .then(data => {
         cpus = data;

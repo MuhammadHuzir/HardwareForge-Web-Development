@@ -414,7 +414,7 @@
     });
 
     // Initialize
-    fetch('http://localhost:3001/api/cases')
+    fetch('/api/cases')
       .then(res => res.json())
       .then(data => {
         cases = data;
