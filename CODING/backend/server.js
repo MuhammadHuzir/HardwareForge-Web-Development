@@ -4,13 +4,15 @@ const cors = require('cors');
 const path = require('path');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
+require('dotenv').config();
+
 const app = express();
-const password = "Admin123";
+
+const JWT_SECRET = process.env.JWT_SECRET;
 
 app.use(cors());
 app.use(express.json());
-
-const JWT_SECRET = 'f3rt1l1z3rf0rpl4nt';
 
 app.use(express.static(path.join(__dirname, '../frontend')));
 app.use('/public', express.static(path.join(__dirname, '../frontend/public')));
@@ -18,11 +20,6 @@ app.use('/images', express.static(path.join(__dirname, './images')));
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/home.html'));
 });
-
-require('dotenv').config();
-const mysql = require('mysql');
-const fs = require('fs');
-const path = require('path');
 
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -37,9 +34,9 @@ const db = mysql.createConnection({
 
 db.connect(err => {
   if (err) {
-    console.error(' Database connection failed:', err);
+    console.error('Database connection failed:', err);
   } else {
-    console.log(' Connected to MySQL database');
+    console.log('Connected to MySQL database');
   }
 });
 
