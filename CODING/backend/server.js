@@ -357,10 +357,6 @@ app.post("/api/replies", authenticateToken, (req, res) => {
 
 const saltRounds = 10;
 
-bcrypt.hash(password, saltRounds, (err, hash) => {
-    if(err) throw err;
-});
-
 // register account
 app.post('/register', async (req, res) => {
   const { username, email, password } = req.body;
